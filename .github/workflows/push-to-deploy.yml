@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
 jobs:
   deployment_pipeline:
     runs-on: ubuntu-20.04
@@ -17,3 +20,11 @@ jobs:
         run: yarn ci
       - name: lint
         run: yarn lint
+  deploy:
+    needs: [deployment_pipeline]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+    
