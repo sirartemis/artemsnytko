@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "ci": "rm -rf node_modules && yarn install --immutable --immutable-cache --check-cache"
+    "ci": "yarn install --frozen-lockfile",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@next/font": "13.1.2",
@@ -20,5 +21,13 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "4.9.4"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
+    "prettier": "2.8.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "prettier --write"
   }
 }

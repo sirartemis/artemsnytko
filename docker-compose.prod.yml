@@ -4,10 +4,9 @@ services:
     image: web-front
     build:
       context: .
-      dockerfile: prod.Dockerfile
+      dockerfile: Dockerfile
     volumes:
-      - ./:/usr/src/app
-      - /usr/src/app/.next
+      - ./:/app
     ports:
       - 3000:3000
     container_name: web-front-prod
