@@ -16,7 +16,7 @@ const StyledMenu = styled.ul`
 
 const AnimatedMenu = animated(StyledMenu);
 
-const menuItem = (item: NavigationMenuItem) => <li>{item}</li>;
+const menuItem = (item: NavigationMenuItem) => <li key={item}>{item}</li>;
 
 export default function NavigationMenu() {
   const springs = useSpring({

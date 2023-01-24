@@ -24,6 +24,7 @@ export default function Avatar() {
         height={50}
         alt=""
         quality={100}
+        loading="eager"
       />
     </StyledAvatar>
   );

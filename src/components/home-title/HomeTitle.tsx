@@ -1,72 +1,82 @@
 import pageSection from "@/HOC/pageSection";
-import styled from "@emotion/styled";
+import { styled, useTheme } from "@mui/material/styles";
+import { color } from "@/styles/colors";
 import Image from "next/image";
 
-const StyledTitle = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  width: 100%;
-  align-items: center;
-  padding: 2rem;
-  gap: 2rem;
+const StyledTitle = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexFlow: "row wrap",
+  justifyContent: "space-evenly",
+  alignItems: "center",
+  padding: "2rem",
+  gap: "2rem",
+  [theme.breakpoints.up("lg")]: {
+    padding: "10rem",
+  },
+}));
 
-  @media screen and (min-width: 1200px) {
-    justify-content: flex-start;
-    gap: 4rem;
-    padding: 10rem;
-  }
-`;
+const ImageWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "15%",
+  overflow: "hidden",
+  width: "350px",
+  height: "350px",
+  [theme.breakpoints.down("sm")]: {
+    width: "250px",
+    height: "250px",
+  },
+}));
 
-const ImageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 15%;
-  overflow: hidden;
-  width: 350px;
-  height: 350px;
-`;
+const StyledHeader = styled("h1")(({ theme }) => ({
+  overflowWrap: "anywhere",
+  padding: "0.5rem",
 
-const StyledHeader = styled.h1`
-  overflow-wrap: anywhere;
-  padding: 0.5rem;
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "2.5rem",
+  },
 
-  @media screen and (max-width: 600px) {
-    font-size: 2.5rem;
-  }
+  [theme.breakpoints.up("sm")]: {
+    fontSize: "3rem",
+  },
+}));
 
-  @media screen and (min-width: 600px) {
-    font-size: 3rem;
-  }
-`;
+const StyledSubHeader = styled("p")(({ theme }) => ({
+  fontSize: "2rem",
+  padding: "0.5rem",
+  color: theme.palette.text.secondary,
+}));
 
-const StyledSubHeader = styled.p`
-  font-size: 2rem;
-  padding: 0.5rem;
-  color: #b0a40a;
-`;
+const StyledInfo = styled("div")(({ theme }) => ({
+  height: "350px",
+  width: "350px",
+}));
 
-const StyledInfo = styled.div`
-  height: 350px;
-  width: 350px;
-`;
+const Description = styled("p")(({ theme }) => ({
+  fontSize: "1.5rem",
+  padding: "2.5rem 0.5rem",
+  maxWidth: "440px",
+}));
 
-const Description = styled.p`
-  font-size: 1.5rem;
-  padding: 2.5rem 0.5rem;
-  max-width: 440px;
-`;
+const NodejsStyle = styled("span")(({ theme }) => ({
+  color: color.node,
+}));
 
-const NodejsStyle = styled.span`
-  color: #3c873a;
-`;
+const ChevronWrapper = styled("div")(({ theme }) => ({
+  width: "50%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}));
 
 function HomeTitle() {
+  const theme = useTheme();
+
   return (
     <StyledTitle>
       <ImageWrapper>
-        <Image src="/me.jpg" width={350} height={450} alt="" />
+        <Image loading="eager" src="/me.jpg" width={350} height={450} alt="" />
       </ImageWrapper>
       <StyledInfo>
         <StyledHeader>Artem Snytko</StyledHeader>
@@ -76,6 +86,7 @@ function HomeTitle() {
           <NodejsStyle>Nodejs</NodejsStyle>
         </Description>
       </StyledInfo>
+      <ChevronWrapper></ChevronWrapper>
     </StyledTitle>
   );
 }

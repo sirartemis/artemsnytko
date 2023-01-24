@@ -24,7 +24,7 @@ export default function BurgerButton({
         edge="start"
         sx={{ ...(visibility && { display: "none" }) }}
       >
-        <Image src="bars.svg" width={30} height={30} alt="" />
+        <Image loading="eager" src="bars.svg" width={30} height={30} alt="" />
       </IconButton>
     </StyledBurger>
   );
