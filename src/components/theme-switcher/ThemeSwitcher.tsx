@@ -6,7 +6,7 @@ import localFont from "@next/font/local";
 
 const oswaldFont = localFont({ src: "../../../public/fonts/Oswald500.ttf" });
 
-const IOSSwitch = styled((props: SwitchProps) => (
+const ThemeSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
   width: 42,
@@ -82,7 +82,7 @@ export default function ThemeSwitcher({
   return (
     <StyledForm
       className={oswaldFont.className}
-      control={<IOSSwitch />}
+      control={<ThemeSwitch />}
       label={withoutLabel ? "" : mode}
       onChange={toggleTheme}
     />

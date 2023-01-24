@@ -4,6 +4,7 @@ import {
   createContext,
   FC,
   MouseEvent,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -14,10 +15,16 @@ import { createTheme, PaletteMode, ThemeProvider } from "@mui/material";
 import { getTheme } from "@/helpers/getTheme";
 import { darkTheme } from "@/styles/themes/dark";
 import { lightTheme } from "@/styles/themes/light";
+import { Globals } from "@react-spring/web";
 
 export const ColorModeContext = createContext({
   toggleTheme: () => {},
   mode: "",
+});
+
+export const AnimationContext = createContext({
+  toggleAnimation: () => {},
+  animation: false,
 });
 
 declare module "@mui/material/styles" {
@@ -57,6 +64,7 @@ const themes = {
 export default function page(Component: FC) {
   const Layout = (props: any) => {
     const [mode, setMode] = useState<PaletteMode>("dark");
+    const [animation, setAnimation] = useState<boolean>(false);
     const headerRef = useRef<{ handleDrawerClose: () => void } | null>(null);
 
     const colorMode = useMemo(
@@ -67,6 +75,16 @@ export default function page(Component: FC) {
         mode,
       }),
       [mode]
+    );
+
+    const animationContext = useMemo(
+      () => ({
+        toggleAnimation: () => {
+          setAnimation(!animation);
+        },
+        animation,
+      }),
+      [animation]
     );
 
     const clickHandler = (e: MouseEvent) => {
@@ -80,18 +98,32 @@ export default function page(Component: FC) {
       [mode]
     );
 
+    useEffect(() => {
+      Globals.assign({
+        skipAnimation: animation,
+      });
+
+      return () => {
+        Globals.assign({
+          skipAnimation: !animation,
+        });
+      };
+    });
+
     return (
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <StyledLayout className={monoFont.className} onClick={clickHandler}>
-            <LayoutHeader ref={headerRef} />
-            <ComponentWrapper>
-              <Component {...props} />
-            </ComponentWrapper>
-            <LayoutFooter />
-          </StyledLayout>
-        </ThemeProvider>
-      </ColorModeContext.Provider>
+      <AnimationContext.Provider value={animationContext}>
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <StyledLayout className={monoFont.className} onClick={clickHandler}>
+              <LayoutHeader ref={headerRef} />
+              <ComponentWrapper>
+                <Component {...props} />
+              </ComponentWrapper>
+              <LayoutFooter />
+            </StyledLayout>
+          </ThemeProvider>
+        </ColorModeContext.Provider>
+      </AnimationContext.Provider>
     );
   };
   return Layout;

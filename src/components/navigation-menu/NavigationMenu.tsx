@@ -3,6 +3,8 @@ import { NavigationMenuItem } from "@/types/navigation-menu";
 import { navigationMenu } from "@/mock";
 import { animated, useSpring } from "@react-spring/web";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { AnimationSwitcher } from "../animation-switcher";
+import { Divider } from "@mui/material";
 
 const StyledMenu = styled.ul`
   display: none;
@@ -36,7 +38,10 @@ export default function NavigationMenu() {
 
   return (
     <AnimatedMenu style={{ ...springs }}>
-      <ThemeSwitcher withoutLabel />
+      <AnimationSwitcher />
+      <Divider orientation="vertical" flexItem />
+      <ThemeSwitcher />
+      <Divider orientation="vertical" flexItem />
       {navigationMenu.map((item) => menuItem(item))}
     </AnimatedMenu>
   );
