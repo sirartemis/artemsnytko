@@ -1,12 +1,24 @@
 import { LayoutFooter } from "@/components/layout-footer";
 import { styled } from "@mui/material/styles";
-import { FC, MouseEvent, useEffect, useMemo, useRef, useState } from "react";
+import {
+  createContext,
+  FC,
+  MouseEvent,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { LayoutHeader } from "../components/layout-header";
 import localFont from "@next/font/local";
 import { createTheme, PaletteMode, ThemeProvider } from "@mui/material";
 import { getTheme } from "@/helpers/getTheme";
 import { darkTheme } from "@/styles/themes/dark";
 import { lightTheme } from "@/styles/themes/light";
+
+export const ColorModeContext = createContext({
+  toggleTheme: () => {},
+  mode: "",
+});
 
 declare module "@mui/material/styles" {
   interface PaletteOptions {
@@ -47,9 +59,15 @@ export default function page(Component: FC) {
     const [mode, setMode] = useState<PaletteMode>("dark");
     const headerRef = useRef<{ handleDrawerClose: () => void } | null>(null);
 
-    const toggleMode = () => {
-      setMode(mode === "dark" ? "light" : "dark");
-    };
+    const colorMode = useMemo(
+      () => ({
+        toggleTheme: () => {
+          setMode(mode === "dark" ? "light" : "dark");
+        },
+        mode,
+      }),
+      [mode]
+    );
 
     const clickHandler = (e: MouseEvent) => {
       if (headerRef) {
@@ -63,15 +81,17 @@ export default function page(Component: FC) {
     );
 
     return (
-      <ThemeProvider theme={theme}>
-        <StyledLayout className={monoFont.className} onClick={clickHandler}>
-          <LayoutHeader ref={headerRef} toggleMode={toggleMode} />
-          <ComponentWrapper>
-            <Component {...props} />
-          </ComponentWrapper>
-          <LayoutFooter />
-        </StyledLayout>
-      </ThemeProvider>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <StyledLayout className={monoFont.className} onClick={clickHandler}>
+            <LayoutHeader ref={headerRef} />
+            <ComponentWrapper>
+              <Component {...props} />
+            </ComponentWrapper>
+            <LayoutFooter />
+          </StyledLayout>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     );
   };
   return Layout;

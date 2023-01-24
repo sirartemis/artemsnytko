@@ -6,6 +6,7 @@ import { NavigationMenuItem } from "@/types/navigation-menu";
 import localFont from "@next/font/local";
 import { navigationMenu } from "@/mock";
 import { color } from "@/styles/colors";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const oswaldFont = localFont({ src: "../../../public/fonts/Oswald500.ttf" });
 
@@ -47,15 +48,12 @@ const StyledWrapper = styled("div")(({ theme }) => ({
 
 const menuItem = (item: NavigationMenuItem) => <li key={item}>{item}</li>;
 
-export default function SideMenu({
-  open,
-  handleDrawerClose,
-  toggleMode,
-}: SideMenuProps) {
+export default function SideMenu({ open, handleDrawerClose }: SideMenuProps) {
   return (
     <StyledDrawer open={open} anchor="bottom">
       <StyledWrapper onClick={(e) => e.stopPropagation()}>
         <StyledMenu className={oswaldFont.className}>
+          <ThemeSwitcher />
           {navigationMenu.map((item) => menuItem(item))}
         </StyledMenu>
         <StyledButton onClick={handleDrawerClose}>
@@ -67,7 +65,6 @@ export default function SideMenu({
             alt=""
           />
         </StyledButton>
-        <Button onClick={toggleMode}>toggle theme</Button>
       </StyledWrapper>
     </StyledDrawer>
   );

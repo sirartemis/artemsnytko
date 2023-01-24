@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { NavigationMenuItem } from "@/types/navigation-menu";
 import { navigationMenu } from "@/mock";
 import { animated, useSpring } from "@react-spring/web";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const StyledMenu = styled.ul`
   display: none;
@@ -11,6 +12,7 @@ const StyledMenu = styled.ul`
     display: flex;
     flex-flow: row nowrap;
     gap: 10px;
+    line-height: 21px;
   }
 `;
 
@@ -34,6 +36,7 @@ export default function NavigationMenu() {
 
   return (
     <AnimatedMenu style={{ ...springs }}>
+      <ThemeSwitcher withoutLabel />
       {navigationMenu.map((item) => menuItem(item))}
     </AnimatedMenu>
   );

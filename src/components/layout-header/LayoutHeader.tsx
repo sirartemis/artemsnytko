@@ -26,7 +26,7 @@ const StyledHeader = styled("div")(({ theme }) => ({
 
 const AnimatedHeader = animated(StyledHeader);
 
-const Header = forwardRef((props: any, ref) => {
+const Header = forwardRef((props, ref) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -64,11 +64,7 @@ const Header = forwardRef((props: any, ref) => {
       <Avatar />
       <NavigationMenu />
       <BurgerButton visibility={open} clickHandler={handleDrawerOpen} />
-      <SideMenu
-        open={open}
-        toggleMode={props.toggleMode}
-        handleDrawerClose={handleDrawerClose}
-      />
+      <SideMenu open={open} handleDrawerClose={handleDrawerClose} />
     </AnimatedHeader>
   );
 });
