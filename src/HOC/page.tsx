@@ -11,7 +11,12 @@ import {
 } from "react";
 import { LayoutHeader } from "../components/layout-header";
 import localFont from "@next/font/local";
-import { createTheme, PaletteMode, ThemeProvider } from "@mui/material";
+import {
+  createTheme,
+  PaletteMode,
+  ThemeProvider,
+  useMediaQuery,
+} from "@mui/material";
 import { getTheme } from "@/helpers/getTheme";
 import { darkTheme } from "@/styles/themes/dark";
 import { lightTheme } from "@/styles/themes/light";
@@ -63,6 +68,7 @@ const themes = {
 
 export default function page(Component: FC) {
   const Layout = (props: any) => {
+    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
     const [mode, setMode] = useState<PaletteMode>("dark");
     const [animation, setAnimation] = useState<boolean>(false);
     const headerRef = useRef<{ handleDrawerClose: () => void } | null>(null);
@@ -109,6 +115,10 @@ export default function page(Component: FC) {
         });
       };
     });
+
+    useEffect(() => {
+      setMode(prefersDarkMode ? "dark" : "light");
+    }, [prefersDarkMode]);
 
     return (
       <AnimationContext.Provider value={animationContext}>

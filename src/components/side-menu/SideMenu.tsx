@@ -8,6 +8,7 @@ import { navigationMenu } from "@/mock";
 import { color } from "@/styles/colors";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { AnimationSwitcher } from "../animation-switcher";
+import { Contacts } from "../contacts";
 
 const oswaldFont = localFont({ src: "../../../public/fonts/Oswald500.ttf" });
 
@@ -66,6 +67,7 @@ export default function SideMenu({ open, handleDrawerClose }: SideMenuProps) {
             <AnimationSwitcher />
             <ThemeSwitcher />
           </Controls>
+          <Contacts />
           {navigationMenu.map((item) => menuItem(item))}
         </StyledMenu>
         <StyledButton onClick={handleDrawerClose}>
