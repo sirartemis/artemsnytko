@@ -1,3 +1,10 @@
+declare module "@mui/material/styles" {
+  interface Palette {
+    header?: string;
+    footer?: string;
+  }
+}
+
 type TextPalette = {
   primary: string;
   secondary: string;

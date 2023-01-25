@@ -1,5 +1,5 @@
 import pageSection from "@/HOC/pageSection";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { color } from "@/styles/colors";
 import Image from "next/image";
 
@@ -48,22 +48,22 @@ const StyledSubHeader = styled("p")(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const StyledInfo = styled("div")(({ theme }) => ({
+const StyledInfo = styled("div")(() => ({
   height: "350px",
   width: "350px",
 }));
 
-const Description = styled("p")(({ theme }) => ({
+const Description = styled("p")(() => ({
   fontSize: "1.5rem",
   padding: "2.5rem 0.5rem",
   maxWidth: "440px",
 }));
 
-const NodejsStyle = styled("span")(({ theme }) => ({
+const NodejsStyle = styled("span")(() => ({
   color: color.node,
 }));
 
-const ChevronWrapper = styled("div")(({ theme }) => ({
+const ChevronWrapper = styled("div")(() => ({
   width: "50%",
   display: "flex",
   justifyContent: "center",
@@ -71,12 +71,10 @@ const ChevronWrapper = styled("div")(({ theme }) => ({
 }));
 
 function HomeTitle() {
-  const theme = useTheme();
-
   return (
     <StyledTitle>
       <ImageWrapper>
-        <Image loading="eager" src="/me.jpg" width={350} height={450} alt="" />
+        <Image src="/me.jpg" width={350} height={450} alt="" />
       </ImageWrapper>
       <StyledInfo>
         <StyledHeader>Artem Snytko</StyledHeader>

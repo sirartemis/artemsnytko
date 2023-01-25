@@ -1,11 +1,11 @@
-import { styled, useTheme } from "@mui/material/styles";
-import localFont from "@next/font/local";
-import { animated, useInView, useSpring } from "@react-spring/web";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { animated, useInView } from "@react-spring/web";
+import localFont from "@next/font/local";
+import { styled } from "@mui/material/styles";
 import { NavigationMenu } from "@/components/navigation-menu";
 import { BurgerButton } from "@/components/burger-button";
-import { SideMenu } from "../side-menu";
-import { Avatar } from "../avatar";
+import { SideMenu } from "@/components/side-menu";
+import { Avatar } from "@/components/avatar";
 
 const oswaldFont = localFont({ src: "../../../public/fonts/Oswald500.ttf" });
 
@@ -27,7 +27,6 @@ const StyledHeader = styled("div")(({ theme }) => ({
 const AnimatedHeader = animated(StyledHeader);
 
 const Header = forwardRef((props, ref) => {
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const [headerRef, springs] = useInView(() => ({

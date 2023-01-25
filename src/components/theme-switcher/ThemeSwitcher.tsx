@@ -1,10 +1,13 @@
-import { Button, FormControlLabel, Switch, SwitchProps } from "@mui/material";
+import { FormControlLabel, Switch, SwitchProps } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext } from "@/HOC/page";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import localFont from "@next/font/local";
 
-const oswaldFont = localFont({ src: "../../../public/fonts/Oswald500.ttf" });
+const oswaldFont = localFont({
+  src: "../../../public/fonts/Oswald500.ttf",
+  variable: "--oswald-font",
+});
 
 const ThemeSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -60,7 +63,7 @@ const ThemeSwitch = styled((props: SwitchProps) => (
   },
 }));
 
-const StyledForm = styled(FormControlLabel)(({ theme }) => ({
+const StyledForm = styled(FormControlLabel)(() => ({
   display: "flex",
   flexFlow: "row nowrap",
   justifyContent: "center",
@@ -68,22 +71,16 @@ const StyledForm = styled(FormControlLabel)(({ theme }) => ({
   gap: "10px",
   margin: 0,
   "& span": {
-    fontFamily: "inherit",
+    fontFamily: "var(--oswald-font)",
   },
 }));
 
-export default function ThemeSwitcher({
-  withoutLabel = false,
-}: {
-  withoutLabel?: boolean;
-}) {
-  const theme = useTheme();
+export default function ThemeSwitcher() {
   const { toggleTheme, mode } = useContext(ColorModeContext);
   return (
     <StyledForm
-      className={oswaldFont.className}
-      control={<ThemeSwitch />}
-      label={withoutLabel ? "" : mode}
+      control={<ThemeSwitch checked={mode === "dark"} />}
+      label={mode}
       onChange={toggleTheme}
     />
   );

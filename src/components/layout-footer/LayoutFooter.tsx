@@ -1,4 +1,4 @@
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import localFont from "@next/font/local";
 import { Contacts } from "@/components/contacts";
 
@@ -17,7 +17,6 @@ const StyledFooter = styled("div")(({ theme }) => ({
 }));
 
 export default function LayoutFooter() {
-  const theme = useTheme();
   return (
     <StyledFooter className={oswaldFont.className}>
       <Contacts />

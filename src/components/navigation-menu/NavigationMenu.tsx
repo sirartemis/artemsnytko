@@ -1,22 +1,21 @@
-import styled from "@emotion/styled";
-import { NavigationMenuItem } from "@/types/navigation-menu";
-import { navigationMenu } from "@/mock";
+import { Divider, styled } from "@mui/material";
 import { animated, useSpring } from "@react-spring/web";
+import { navigationMenu } from "@/mock";
+import { NavigationMenuItem } from "@/types/navigation-menu";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { AnimationSwitcher } from "../animation-switcher";
-import { Divider } from "@mui/material";
+import { AnimationSwitcher } from "@/components/animation-switcher";
 
-const StyledMenu = styled.ul`
-  display: none;
+const StyledMenu = styled("ul")(({ theme }) => ({
+  display: "none",
 
-  @media screen and (min-width: 600px) {
-    list-style-type: none;
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 10px;
-    line-height: 21px;
-  }
-`;
+  [theme.breakpoints.up("sm")]: {
+    listStyleType: "none",
+    display: "flex",
+    flexFlow: "row nowrap",
+    gap: "10px",
+    lineHeight: "21px",
+  },
+}));
 
 const AnimatedMenu = animated(StyledMenu);
 

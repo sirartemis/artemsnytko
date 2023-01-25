@@ -1,24 +1,22 @@
-import { useTheme, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Image from "next/image";
 
-const StyledWrapper = styled("div")(({ theme }) => ({
+const StyledWrapper = styled("div")(() => ({
   display: "flex",
   flexFlow: "row nowrap",
   justifyContent: "center",
   alignItems: "center",
-  gap: "20px",
+  gap: "40px",
   padding: "20px",
 }));
 
 export default function Contacts() {
-  const theme = useTheme();
-
   return (
     <StyledWrapper>
-      <Image src="/github.svg" alt="" width={20} height={20} />
-      <Image src="/linkedin.svg" alt="" width={20} height={20} />
-      <Image src="/telegram.svg" alt="" width={20} height={20} />
-      <Image src="/email.svg" alt="" width={20} height={20} />
+      <Image src="/github.svg" alt="" width={30} height={30} />
+      <Image src="/linkedin.svg" alt="" width={30} height={30} />
+      <Image src="/telegram.svg" alt="" width={30} height={30} />
+      <Image src="/email.svg" alt="" width={30} height={30} />
     </StyledWrapper>
   );
 }

@@ -1,15 +1,15 @@
 import { BurgerButtonProps } from "@/types/burger-button";
 import { IconButton } from "@mui/material";
 import Image from "next/image";
-import styled from "@emotion/styled";
+import { styled } from "@mui/material";
 
-const StyledBurger = styled.div`
-  display: none;
+const StyledBurger = styled("div")(({ theme }) => ({
+  display: "none",
 
-  @media screen and (max-width: 600px) {
-    display: block;
-  }
-`;
+  [theme.breakpoints.down("sm")]: {
+    display: "block",
+  },
+}));
 
 export default function BurgerButton({
   clickHandler,

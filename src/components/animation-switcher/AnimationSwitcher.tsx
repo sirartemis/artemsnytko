@@ -4,9 +4,12 @@ import { styled, useTheme } from "@mui/material/styles";
 import localFont from "@next/font/local";
 import { useContext } from "react";
 
-const oswaldFont = localFont({ src: "../../../public/fonts/Oswald500.ttf" });
+const oswaldFont = localFont({
+  src: "../../../public/fonts/Oswald500.ttf",
+  variable: "--oswald-font",
+});
 
-const ThemeSwitch = styled((props: SwitchProps) => (
+const AnimationSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
   width: 42,
@@ -50,7 +53,7 @@ const StyledForm = styled(FormControlLabel)(({ theme }) => ({
   gap: "10px",
   margin: 0,
   "& span": {
-    fontFamily: "inherit",
+    fontFamily: "var(--oswald-font)",
   },
 }));
 
@@ -60,8 +63,7 @@ export default function AnimationSwitcher() {
 
   return (
     <StyledForm
-      className={oswaldFont.className}
-      control={<ThemeSwitch checked={!animation} />}
+      control={<AnimationSwitch checked={!animation} />}
       label={"animation"}
       onChange={toggleAnimation}
     />

@@ -1,26 +1,18 @@
-import { LayoutFooter } from "@/components/layout-footer";
-import { styled } from "@mui/material/styles";
-import {
-  createContext,
-  FC,
-  MouseEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { LayoutHeader } from "../components/layout-header";
+import { createContext, FC, useEffect, useMemo, useRef, useState } from "react";
 import localFont from "@next/font/local";
 import {
   createTheme,
   PaletteMode,
   ThemeProvider,
   useMediaQuery,
+  styled,
 } from "@mui/material";
 import { getTheme } from "@/helpers/getTheme";
 import { darkTheme } from "@/styles/themes/dark";
 import { lightTheme } from "@/styles/themes/light";
 import { Globals } from "@react-spring/web";
+import { LayoutHeader } from "@/components/layout-header";
+import { LayoutFooter } from "@/components/layout-footer";
 
 export const ColorModeContext = createContext({
   toggleTheme: () => {},
@@ -32,27 +24,19 @@ export const AnimationContext = createContext({
   animation: false,
 });
 
-declare module "@mui/material/styles" {
-  interface PaletteOptions {
-    header?: string;
-    footer?: string;
-  }
-
-  interface Palette {
-    header?: string;
-    footer?: string;
-  }
-}
-
-const monoFont = localFont({ src: "../../public/fonts/Mono400.ttf" });
+const monoFont = localFont({
+  src: "../../public/fonts/Mono400.ttf",
+  variable: "--mono-font",
+});
 
 const StyledLayout = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.primary.dark,
   color: theme.palette.text.primary,
   fontSize: "18px",
+  fontFamily: "var(--mono-font)",
 }));
 
-const ComponentWrapper = styled("div")(({ theme }) => ({
+const ComponentWrapper = styled("div")(() => ({
   display: "flex",
   flexFlow: "column nowrap",
   gap: "4rem",
@@ -93,7 +77,7 @@ export default function page(Component: FC) {
       [animation]
     );
 
-    const clickHandler = (e: MouseEvent) => {
+    const clickHandler = () => {
       if (headerRef) {
         headerRef?.current?.handleDrawerClose();
       }
@@ -124,7 +108,7 @@ export default function page(Component: FC) {
       <AnimationContext.Provider value={animationContext}>
         <ColorModeContext.Provider value={colorMode}>
           <ThemeProvider theme={theme}>
-            <StyledLayout className={monoFont.className} onClick={clickHandler}>
+            <StyledLayout className={monoFont.variable} onClick={clickHandler}>
               <LayoutHeader ref={headerRef} />
               <ComponentWrapper>
                 <Component {...props} />
