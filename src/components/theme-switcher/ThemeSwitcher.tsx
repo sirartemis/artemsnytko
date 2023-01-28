@@ -1,6 +1,6 @@
 import { FormControlLabel, Switch, SwitchProps } from "@mui/material";
 import { useContext } from "react";
-import { ColorModeContext } from "@/HOC/page";
+import { ColorModeContext } from "@/pages/_app";
 import { styled } from "@mui/material/styles";
 import localFont from "@next/font/local";
 

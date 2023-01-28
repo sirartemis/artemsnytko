@@ -1,4 +1,4 @@
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { animated, useInView, useSpring } from "@react-spring/web";
 import { FC } from "react";
 
@@ -14,7 +14,6 @@ const AnimatedSection = animated(StyledSection);
 
 export default function pageSection(Component: FC) {
   const Wrapper = (props: any) => {
-    const theme = useTheme();
     const [sectionRef, isInView] = useInView();
 
     const springs = useSpring({

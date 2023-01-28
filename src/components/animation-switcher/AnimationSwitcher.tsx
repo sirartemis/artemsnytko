@@ -1,4 +1,4 @@
-import { AnimationContext } from "@/HOC/page";
+import { AnimationContext } from "@/pages/_app";
 import { FormControlLabel, Switch, SwitchProps } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import localFont from "@next/font/local";

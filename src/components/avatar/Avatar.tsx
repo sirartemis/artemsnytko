@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { styled } from "@mui/material";
+import Link from "next/link";
 
 const StyledAvatar = styled("div")(() => ({
   borderRadius: "50%",
@@ -17,14 +18,16 @@ const StyledImage = styled(Image)`
 
 export default function Avatar() {
   return (
-    <StyledAvatar>
-      <StyledImage
-        src="/avatar.jpg"
-        width={30}
-        height={50}
-        alt=""
-        quality={100}
-      />
-    </StyledAvatar>
+    <Link href="/">
+      <StyledAvatar>
+        <StyledImage
+          src="/avatar.jpg"
+          width={30}
+          height={50}
+          alt=""
+          quality={100}
+        />
+      </StyledAvatar>
+    </Link>
   );
 }

@@ -1,39 +1,20 @@
-import { createContext, FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import localFont from "@next/font/local";
-import {
-  createTheme,
-  PaletteMode,
-  ThemeProvider,
-  useMediaQuery,
-  styled,
-} from "@mui/material";
-import { getTheme } from "@/helpers/getTheme";
-import { darkTheme } from "@/styles/themes/dark";
-import { lightTheme } from "@/styles/themes/light";
-import { Globals } from "@react-spring/web";
+import { styled } from "@mui/material";
 import { LayoutHeader } from "@/components/layout-header";
 import { LayoutFooter } from "@/components/layout-footer";
+import Head from "next/head";
 
-export const ColorModeContext = createContext({
-  toggleTheme: () => {},
-  mode: "",
-});
-
-export const AnimationContext = createContext({
-  toggleAnimation: () => {},
-  animation: false,
-});
-
-const monoFont = localFont({
-  src: "../../public/fonts/Mono400.ttf",
-  variable: "--mono-font",
+const oswaldFont = localFont({
+  src: "../../public/fonts/Oswald500.ttf",
+  variable: "--oswald-font",
 });
 
 const StyledLayout = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.primary.dark,
   color: theme.palette.text.primary,
   fontSize: "18px",
-  fontFamily: "var(--mono-font)",
+  fontFamily: "var(--oswald-font)",
 }));
 
 const ComponentWrapper = styled("div")(() => ({
@@ -45,37 +26,11 @@ const ComponentWrapper = styled("div")(() => ({
   marginTop: "60px",
 }));
 
-const themes = {
-  dark: darkTheme,
-  light: lightTheme,
-};
-
 export default function page(Component: FC) {
   const Layout = (props: any) => {
-    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-    const [mode, setMode] = useState<PaletteMode>("dark");
-    const [animation, setAnimation] = useState<boolean>(false);
     const headerRef = useRef<{ handleDrawerClose: () => void } | null>(null);
-
-    const colorMode = useMemo(
-      () => ({
-        toggleTheme: () => {
-          setMode(mode === "dark" ? "light" : "dark");
-        },
-        mode,
-      }),
-      [mode]
-    );
-
-    const animationContext = useMemo(
-      () => ({
-        toggleAnimation: () => {
-          setAnimation(!animation);
-        },
-        animation,
-      }),
-      [animation]
-    );
+    const titleRef = useRef<string>("");
+    titleRef.current = Component.name;
 
     const clickHandler = () => {
       if (headerRef) {
@@ -83,41 +38,17 @@ export default function page(Component: FC) {
       }
     };
 
-    const theme = useMemo(
-      () => createTheme(getTheme(mode, themes[mode])),
-      [mode]
-    );
-
-    useEffect(() => {
-      Globals.assign({
-        skipAnimation: animation,
-      });
-
-      return () => {
-        Globals.assign({
-          skipAnimation: !animation,
-        });
-      };
-    });
-
-    useEffect(() => {
-      setMode(prefersDarkMode ? "dark" : "light");
-    }, [prefersDarkMode]);
-
     return (
-      <AnimationContext.Provider value={animationContext}>
-        <ColorModeContext.Provider value={colorMode}>
-          <ThemeProvider theme={theme}>
-            <StyledLayout className={monoFont.variable} onClick={clickHandler}>
-              <LayoutHeader ref={headerRef} />
-              <ComponentWrapper>
-                <Component {...props} />
-              </ComponentWrapper>
-              <LayoutFooter />
-            </StyledLayout>
-          </ThemeProvider>
-        </ColorModeContext.Provider>
-      </AnimationContext.Provider>
+      <StyledLayout className={oswaldFont.variable} onClick={clickHandler}>
+        <LayoutHeader ref={headerRef} />
+        <ComponentWrapper>
+          <Head>
+            <title>{titleRef.current} | Artem Snytko</title>
+          </Head>
+          <Component {...props} />
+        </ComponentWrapper>
+        <LayoutFooter />
+      </StyledLayout>
     );
   };
   return Layout;

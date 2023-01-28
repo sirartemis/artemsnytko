@@ -1,13 +1,14 @@
 import Image from "next/image";
 import localFont from "@next/font/local";
 import { Button, Drawer, styled } from "@mui/material";
-import { navigationMenu } from "@/mock";
+import { link, navigationMenu } from "@/mock";
 import { SideMenuProps } from "@/types/side-menu";
 import { NavigationMenuItem } from "@/types/navigation-menu";
 import { color } from "@/styles/colors";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { AnimationSwitcher } from "@/components/animation-switcher";
 import { Contacts } from "@/components/contacts";
+import Link from "next/link";
 
 const oswaldFont = localFont({ src: "../../../public/fonts/Oswald500.ttf" });
 
@@ -55,7 +56,11 @@ const Controls = styled("div")(() => ({
   gap: "20px",
 }));
 
-const menuItem = (item: NavigationMenuItem) => <li key={item}>{item}</li>;
+const menuItem = (item: NavigationMenuItem) => (
+  <Link key={item} href={link[item]}>
+    <li>{item}</li>
+  </Link>
+);
 
 export default function SideMenu({ open, handleDrawerClose }: SideMenuProps) {
   return (

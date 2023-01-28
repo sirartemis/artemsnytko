@@ -1,9 +1,10 @@
 import { Divider, styled } from "@mui/material";
 import { animated, useSpring } from "@react-spring/web";
-import { navigationMenu } from "@/mock";
+import { navigationMenu, link } from "@/mock";
 import { NavigationMenuItem } from "@/types/navigation-menu";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { AnimationSwitcher } from "@/components/animation-switcher";
+import Link from "next/link";
 
 const StyledMenu = styled("ul")(({ theme }) => ({
   display: "none",
@@ -19,7 +20,11 @@ const StyledMenu = styled("ul")(({ theme }) => ({
 
 const AnimatedMenu = animated(StyledMenu);
 
-const menuItem = (item: NavigationMenuItem) => <li key={item}>{item}</li>;
+const menuItem = (item: NavigationMenuItem) => (
+  <Link key={item} href={link[item]}>
+    <li>{item}</li>
+  </Link>
+);
 
 export default function NavigationMenu() {
   const springs = useSpring({

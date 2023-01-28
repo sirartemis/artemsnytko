@@ -13,10 +13,18 @@ const StyledWrapper = styled("div")(() => ({
 export default function Contacts() {
   return (
     <StyledWrapper>
-      <Image src="/github.svg" alt="" width={30} height={30} />
-      <Image src="/linkedin.svg" alt="" width={30} height={30} />
-      <Image src="/telegram.svg" alt="" width={30} height={30} />
-      <Image src="/email.svg" alt="" width={30} height={30} />
+      <a href="https://github.com/sirartemis">
+        <Image src="/github.svg" alt="" width={30} height={30} />
+      </a>
+      <a href="https://www.linkedin.com/in/artem-snytko/">
+        <Image src="/linkedin.svg" alt="" width={30} height={30} />
+      </a>
+      <a href="https://t.me/sirArtemis91">
+        <Image src="/telegram.svg" alt="" width={30} height={30} />
+      </a>
+      <a href="mailto:sirartemis91@gmail.com">
+        <Image src="/email.svg" alt="" width={30} height={30} />
+      </a>
     </StyledWrapper>
   );
 }
