@@ -1,4 +1,3 @@
-import { HomeTitle } from "@/components/home-title";
 import page from "@/HOC/page";
 
 function Blog() {
